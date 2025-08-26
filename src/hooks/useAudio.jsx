@@ -47,7 +47,7 @@ export const AudioProvider = ({ children }) => {
   const fadeIntervalRef = useRef(null);
   const isPreviewingRef = useRef(false);
   const isPlayingUpsellRef = useRef(false);
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://api.muzo.com.vn";
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8081";
   const UPSELL_AUDIO_URL = "/audio/premium_upsell.mp3";
 
   const getStreamingUrl = (songId) => {

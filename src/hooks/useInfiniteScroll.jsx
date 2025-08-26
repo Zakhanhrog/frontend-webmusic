@@ -6,6 +6,7 @@ const useInfiniteScroll = ({
                                fetcher,
                                initialPage = 1,
                                limit = 20,
+                               maxItems = Infinity,
                            }) => {
     const [items, setItems] = useState([]);
     const [page, setPage] = useState(initialPage);
@@ -25,35 +26,35 @@ const useInfiniteScroll = ({
         setLoading(true);
 
         try {
-            // response.data trả về từ axios có dạng { success: true, message: '...', data: { content: [], pageInfo: {} } }
             const response = await fetcherRef.current({ page: currentPage, limit });
-
-            // SỬA LỖI Ở ĐÂY: Lấy dữ liệu từ đúng đường dẫn
             const responseData = response.data?.content || [];
             const pageInfo = response.data?.pageInfo;
 
-            // Kiểm tra để đảm bảo responseData là một mảng
             if (!Array.isArray(responseData)) {
                 console.error("Fetcher did not return an array in data.content:", responseData);
                 setHasMore(false);
                 throw new Error("Invalid data format from API");
             }
 
-            setItems((prevItems) =>
-                currentPage === initialPage ? responseData : [...prevItems, ...responseData]
-            );
+            const newTotalItems = items.length + responseData.length;
 
-            let hasNextPage = true;
+            setItems((prevItems) => {
+                const combined = currentPage === initialPage ? responseData : [...prevItems, ...responseData];
+                return combined.slice(0, maxItems);
+            });
+
+            let hasNextPageFromApi = true;
             if (pageInfo) {
-                // Spring Pageable trả về 'page' là 0-indexed, 'totalPages' là 1-indexed
-                hasNextPage = pageInfo.hasNext !== undefined ? pageInfo.hasNext : (pageInfo.page < pageInfo.totalPages - 1);
+                hasNextPageFromApi = pageInfo.hasNext !== undefined ? pageInfo.hasNext : (pageInfo.page < pageInfo.totalPages - 1);
             } else {
-                // Fallback nếu không có pageInfo
-                hasNextPage = responseData.length === limit;
+                hasNextPageFromApi = responseData.length === limit;
             }
-            setHasMore(hasNextPage);
 
-            if (hasNextPage) {
+            // SỬA LỖI Ở ĐÂY: Dừng lại nếu API hết dữ liệu HOẶC đã đạt giới hạn maxItems
+            const shouldHaveMore = hasNextPageFromApi && newTotalItems < maxItems;
+            setHasMore(shouldHaveMore);
+
+            if (shouldHaveMore) {
                 setPage(currentPage + 1);
             }
 
@@ -64,7 +65,7 @@ const useInfiniteScroll = ({
         } finally {
             setLoading(false);
         }
-    }, [loading, hasMore, error, initialPage, limit]);
+    }, [loading, hasMore, error, initialPage, limit, items.length, maxItems]); // Thêm items.length và maxItems
 
     const lastElementRef = useCallback(
         (node) => {
