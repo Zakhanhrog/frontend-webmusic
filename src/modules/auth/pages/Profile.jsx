@@ -10,7 +10,7 @@ import { User, Mail, Phone, Calendar } from "lucide-react";
 import { toast } from "react-toastify";
 
 // const API_BASE_URL =
-//   import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
+//   import.meta.env.VITE_API_BASE_URL || "https://api.muzo.com.vn";
 
 const SettingsCard = ({ title, description, children }) => {
   const { isDarkMode } = useDarkMode();
@@ -69,7 +69,7 @@ const Profile = () => {
         user.avatarPath
           ? isExternal
             ? user.avatarPath
-            : `${import.meta.env.VITE_API_BASE_URL || "http://localhost:8080"}${
+            : `${import.meta.env.VITE_API_BASE_URL || "https://api.muzo.com.vn"}${
                 user.avatarPath
               }`
           : ""

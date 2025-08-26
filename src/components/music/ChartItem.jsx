@@ -7,7 +7,7 @@ import Button from '../common/Button';
 import { useAudio } from '../../hooks/useAudio';
 import { useDarkMode } from '../../hooks/useDarkMode';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://api.muzo.com.vn';
 
 const ChartItem = ({ chartEntry, onPlay, index }) => {
     const { rank, previousRank, song } = chartEntry;

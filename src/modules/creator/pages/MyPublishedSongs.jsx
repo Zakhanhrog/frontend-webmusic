@@ -9,7 +9,7 @@ import { Search } from "lucide-react";
 import Pagination from "../../../components/common/Pagination";
 
 const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
+  import.meta.env.VITE_API_BASE_URL || "https://api.muzo.com.vn";
 
 const MyPublishedSongs = () => {
   const { currentTheme } = useDarkMode();

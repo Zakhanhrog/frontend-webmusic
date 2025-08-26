@@ -10,7 +10,7 @@ import Button from '../../../components/common/Button';
 import { CreatePlaylistModal } from '../components/CreatePlaylistModal';
 import ConfirmationModal from '../../../components/common/ConfirmationModal';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://api.muzo.com.vn';
 
 const PlaylistCard = ({ playlist, onPlayPlaylist }) => (
     <div className="group relative block">

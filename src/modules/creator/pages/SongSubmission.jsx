@@ -12,7 +12,7 @@ import { PlusCircle, Trash2 } from "lucide-react";
 import CreateSingerModal from "../../admin/components/CreateSingerModal";
 
 const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
+  import.meta.env.VITE_API_BASE_URL || "https://api.muzo.com.vn";
 
 const NewSingerInput = ({ singer, index, onUpdate, onRemove }) => {
   const [avatarPreview, setAvatarPreview] = useState(null);

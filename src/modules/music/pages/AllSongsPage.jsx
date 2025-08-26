@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import { Search, LayoutGrid, List, Music, Play } from 'lucide-react';
 import { useDarkMode } from '../../../hooks/useDarkMode';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://api.muzo.com.vn';
 
 const SongListItem = ({ song, index, onPlay }) => {
     const { isDarkMode } = useDarkMode();

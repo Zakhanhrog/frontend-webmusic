@@ -44,7 +44,7 @@ const LyricsSidebar = ({ isOpen, onClose }) => {
                 <div className="absolute inset-0">
                     {currentSong && (
                         <img 
-                            src={`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'}${currentSong.thumbnailPath}`} 
+                            src={`${import.meta.env.VITE_API_BASE_URL || 'https://api.muzo.com.vn'}${currentSong.thumbnailPath}`} 
                             alt="Lyrics background" 
                             className={`w-full h-full object-cover scale-110 filter blur-2xl transition-all duration-500 ${isDarkMode ? 'brightness-[.3]' : 'brightness-75'}`} 
                         />

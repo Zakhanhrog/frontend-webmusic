@@ -1,240 +1,105 @@
-# Muzo Frontend
+# 🎵 Muzo - Music Streaming Platform
 
-Ứng dụng phát nhạc trực tuyến được xây dựng với React, Vite và TailwindCSS theo kiến trúc modular.
+Ứng dụng phát nhạc trực tuyến hiện đại được xây dựng với **React 19** và **Vite**, cung cấp trải nghiệm âm nhạc chất lượng cao với giao diện thân thiện và tính năng AI thông minh.
 
-## 🚀 Tính năng chính
+## ✨ Tính năng nổi bật
 
-### Người dùng (User)
-- ✅ Đăng ký/Đăng nhập (local + OAuth)
-- ✅ Quản lý profile cá nhân
-- 🔄 Nghe nhạc và tạo playlist
-- 🔄 Nâng cấp Premium
-- 🔄 Tìm kiếm bài hát, nghệ sĩ, playlist
+- 🎧 **Phát nhạc streaming** - Công nghệ zero delay, không gián đoạn
+- 🤖 **AI đề xuất thông minh** - Thuật toán học sở thích người dùng  
+- 🎨 **Dark/Light Mode** - Giao diện tự động thích ứng
+- 👑 **Premium Features** - Chất lượng Hi-Res Audio, Lossless
+- 🔐 **Multi-role System** - User, Creator, Admin dashboard
+- 📱 **Responsive Design** - Tối ưu cho mọi thiết bị
+- 🌐 **Internationalization** - Hỗ trợ đa ngôn ngữ
 
-### Nhà sáng tạo (Creator)
-- 🔄 Gửi yêu cầu đăng bài hát
-- 🔄 Quản lý nghệ sĩ
-- 🔄 Theo dõi trạng thái duyệt
+## 🏗️ Kiến trúc & Tech Stack
 
-### Quản trị viên (Admin)
-- 🔄 Quản lý người dùng
-- 🔄 Duyệt bài hát
-- 🔄 Tạo bài hát trực tiếp
-- 🔄 Thống kê hệ thống
+### Frontend Technologies
+- **React 19.1.0** + **Vite 7.0.4** - Framework hiện đại
+- **TailwindCSS 3.4.17** - Utility-first CSS framework
+- **React Router DOM 7.7.0** - SPA routing
+- **HTML5 Audio API** - Xử lý audio chuyên nghiệp
+- **Axios** - HTTP client cho API integration
 
-## 🏗️ Kiến trúc dự án
-
+### Architecture Pattern
 ```
 src/
-├── components/          # Shared components
-│   ├── common/          # Button, Input, Modal, Card...
-│   └── layout/          # LandingPage, DashboardLayout
-├── hooks/               # Custom hooks
-│   ├── useAuth.jsx      # Authentication logic
-│   ├── useAudio.jsx     # Audio player logic
-│   ├── useDarkMode.jsx  # Theme management
-│   └── useLanguage.jsx  # Internationalization
-├── modules/             # Feature modules
-│   ├── auth/            # Authentication features
-│   ├── admin/           # Admin features
-│   ├── music/           # Music player & management
-│   ├── creator/         # Creator workflow
-│   ├── premium/         # Subscription features
-│   └── search/          # Search functionality
-├── shared/              # Shared utilities
-│   ├── services/        # API services
-│   ├── constants/       # App constants
-│   ├── translations/    # i18n files
-│   └── utils/           # Helper functions
-└── theme/               # Theme configuration
+├── components/     # Shared UI components
+├── modules/        # Feature-based modules
+│   ├── auth/       # Authentication
+│   ├── music/      # Music player & management  
+│   ├── admin/      # Admin dashboard
+│   ├── creator/    # Creator tools
+│   └── premium/    # Subscription features
+├── hooks/          # Custom React hooks
+├── shared/         # Utilities & services
+└── pages/          # Route components
 ```
 
-## 🛠️ Tech Stack
+## 🚀 Khởi chạy dự án
 
-- **Frontend:** React 19.1.0 + Vite 7.0.4
-- **Styling:** TailwindCSS 3.4.17 + Dark mode
-- **Routing:** React Router DOM 7.7.0
-- **Audio:** HTML5 Audio API + React hooks
-- **HTTP Client:** Axios 1.10.0
-- **UI Components:** Lucide React + React Icons
-- **Notifications:** React Toastify
-- **Development:** ESLint + PostCSS + Autoprefixer
+### Yêu cầu hệ thống
+- Node.js 18+
+- npm/yarn
+- Backend API server
 
-## 📋 Yêu cầu hệ thống
-
-- Node.js 18+ 
-- npm hoặc yarn
-- Backend API (xem [API Documentation](../backend/README.md))
-
-## 🚀 Cài đặt và chạy
-
-### 1. Clone và cài đặt dependencies
+### Cài đặt
 
 ```bash
-# Clone repository
+# Clone project
 git clone <repository-url>
-cd Muzo_frontend
+cd frontend-webmusic
 
-# Cài đặt dependencies
+# Install dependencies  
 npm install
-```
 
-### 2. Cấu hình environment
-
-```bash
-# Copy file cấu hình mẫu
+# Setup environment
 cp .env.example .env
+# Cấu hình VITE_API_BASE_URL trong .env
 
-# Chỉnh sửa file .env với thông tin backend
-VITE_API_BASE_URL=http://localhost:8080
-```
-
-### 3. Chạy development server
-
-```bash
+# Run development
 npm run dev
 ```
 
-Mở [http://localhost:3000](http://localhost:3000) để xem ứng dụng.
-
-### 4. Build production
+### Scripts
 
 ```bash
-npm run build
-npm run preview
+npm run dev      # Development server (localhost:3000)
+npm run build    # Production build
+npm run preview  # Preview production build  
+npm run lint     # Code linting
 ```
 
-## 📝 Scripts có sẵn
+## 🎯 Key Components
 
-- `npm run dev` - Chạy development server
-- `npm run build` - Build production
-- `npm run preview` - Preview production build
-- `npm run lint` - Chạy ESLint
+### [`DescriptionBox`](src/modules/music/components/DescriptionBox.jsx)
+Component hiển thị mô tả với tính năng expand/collapse thông minh, tự động detect overflow content.
 
-## 🎨 Theme và Styling
+### [`useDarkMode`](src/hooks/useDarkMode.jsx) 
+Custom hook quản lý theme switching với localStorage persistence.
 
-### Dark Mode
-Ứng dụng hỗ trợ dark/light mode với TailwindCSS:
-- Toggle qua hook `useDarkMode()`
-- CSS classes tự động chuyển đổi
-- Lưu preferences trong localStorage
+### [`LandingPage`](src/components/layout/LandingPage.jsx)
+Landing page với gradient design showcasing các tính năng chính.
 
-### Color Palette
-```css
-/* Primary Colors */
-music-500: #a855f7    /* Purple */
-music-600: #9333ea
+## 🔧 Tính năng kỹ thuật
 
-/* Accent Colors */
-accent-500: #ec4899   /* Pink */
-accent-600: #db2777
-```
+- **Modular Architecture** - Tách biệt features theo modules
+- **Custom Hooks** - Tái sử dụng logic (useAuth, useAudio, useDarkMode)
+- **Theme System** - Dynamic theming với CSS variables
+- **Performance Optimized** - Lazy loading, code splitting
+- **Responsive UI** - Mobile-first design approach
+- **Accessibility** - ARIA compliance, keyboard navigation
 
-### Components
-Tất cả components được thiết kế responsive và accessible:
-- Button với multiple variants
-- Card với hover effects
-- Modal với backdrop
-- Input với validation states
+## 🎨 UI/UX Features
 
-## 🌐 Internationalization (i18n)
-
-Hỗ trợ đa ngôn ngữ qua hook `useLanguage()`:
-- Tiếng Việt (vi) - mặc định
-- English (en)
-
-Thêm ngôn ngữ mới:
-1. Cập nhật `src/hooks/useLanguage.jsx`
-2. Thêm translations vào object `translations`
-
-## 🔧 API Integration
-
-### Authentication Flow
-```javascript
-// Login
-const response = await authService.login({ email, password })
-
-// Register  
-await authService.register({ email, password, displayName })
-
-// Profile
-const user = await authService.getCurrentUser()
-```
-
-### Music Operations
-```javascript
-// Get songs
-const songs = await musicService.getSongs({ page: 1, limit: 20 })
-
-// Play song
-const song = await musicService.getSong(songId)
-audioPlayer.playSong(song)
-
-// Create playlist
-await musicService.createPlaylist({ name, description })
-```
-
-## 📱 Responsive Design
-
-- **Mobile First:** Thiết kế ưu tiên mobile
-- **Breakpoints:** sm, md, lg, xl (TailwindCSS)
-- **Touch Friendly:** Nút bấm và controls tối ưu cho touch
-- **Audio Player:** Sticky player ở bottom trên mọi màn hình
-
-## 🔒 Security
-
-- JWT token authentication
-- Automatic token refresh
-- Route protection với ProtectedRoute
-- Input validation và sanitization
-- HTTPS enforcement (production)
-
-## 🧪 Testing (Coming Soon)
-
-```bash
-# Unit tests
-npm run test
-
-# E2E tests  
-npm run test:e2e
-
-# Coverage
-npm run test:coverage
-```
-
-## 📈 Performance
-
-- Code splitting theo modules
-- Lazy loading components
-- Image optimization
-- Audio streaming optimized
-- Bundle analyzer
-
-## 🤝 Contributing
-
-1. Fork repository
-2. Tạo feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to branch (`git push origin feature/AmazingFeature`)
-5. Mở Pull Request
-
-## 📄 License
-
-Distributed under the MIT License. See `LICENSE` for more information.
-
-## 👥 Team
-
-- **Frontend Developer:** [Your Name]
-- **UI/UX Designer:** [Designer Name]
-- **Backend Developer:** [Backend Dev Name]
-
-## 🆘 Support
-
-Nếu gặp vấn đề:
-1. Check [Issues](../../issues) 
-2. Tạo issue mới với template
-3. Contact: [email@example.com]
+- Modern gradient backgrounds và smooth transitions
+- Card-based layout với hover effects  
+- Intelligent content truncation (line-clamp)
+- Toast notifications cho user feedback
+- Loading states và error handling
 
 ---
-
-Made with ❤️ in Vietnam 🇻🇳
+ 
+**Backend API:** api.muzo.com.vn  
+**Design System:** TailwindCSS + Custom theme variables
+**Main Programmer:** Ngô Gia Khánh ( devfromzk )

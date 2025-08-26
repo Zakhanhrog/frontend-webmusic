@@ -7,7 +7,7 @@ import { musicService } from '../services/musicService';
 import { toast } from 'react-toastify';
 import { Search, Plus, X } from 'lucide-react';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://api.muzo.com.vn';
 
 const SongItem = ({ song, onAdd }) => (
     <div className="flex items-center justify-between p-2 rounded-md hover:bg-slate-100 dark:hover:bg-slate-700/50">

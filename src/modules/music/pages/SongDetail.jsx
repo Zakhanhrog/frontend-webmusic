@@ -113,7 +113,7 @@ const SongDetail = () => {
   };
 
   const API_BASE_URL =
-    import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
+    import.meta.env.VITE_API_BASE_URL || "https://api.muzo.com.vn";
 
   // === BẮT ĐẦU SỬA ĐỔI 2: Hiển thị loading khi auth hoặc song đang tải ===
   if (loading || authLoading) {

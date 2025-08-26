@@ -106,7 +106,7 @@ const SuggestedSongs = () => {
                             {/* Song Thumbnail */}
                             <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
                                 <img
-                                    src={song.thumbnailPath ? `${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'}${song.thumbnailPath}` : 'https://via.placeholder.com/64'}
+                                    src={song.thumbnailPath ? `${import.meta.env.VITE_API_BASE_URL || 'https://api.muzo.com.vn'}${song.thumbnailPath}` : 'https://via.placeholder.com/64'}
                                     alt={song.title}
                                     className="w-full h-full object-cover"
                                 />

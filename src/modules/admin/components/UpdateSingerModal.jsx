@@ -7,7 +7,7 @@ import { adminService } from '../services/adminService';
 import { toast } from 'react-toastify';
 import { User, Mail } from 'lucide-react';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://api.muzo.com.vn';
 
 const UpdateSingerModal = ({ isOpen, onClose, singer, onSingerUpdated }) => {
     const [name, setName] = useState('');

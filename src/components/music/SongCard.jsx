@@ -9,7 +9,7 @@ import { useAudio } from "../../hooks/useAudio";
 import { toast } from "react-toastify";
 
 const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
+  import.meta.env.VITE_API_BASE_URL || "https://api.muzo.com.vn";
 
 const SongCard = ({ song, onPlay }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);

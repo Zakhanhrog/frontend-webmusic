@@ -45,7 +45,7 @@ import { useNotifications } from "../../hooks/useNotifications";
 import Avatar from "../common/Avatar";
 
 const API_BASE_URL =
-    import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
+    import.meta.env.VITE_API_BASE_URL || "https://api.muzo.com.vn";
 
 const NavbarProgressBar = ({ currentSong, currentTime, duration, isPlaying, onSeek }) => {
   const { isDarkMode } = useDarkMode();
@@ -93,7 +93,7 @@ const NavbarProgressBar = ({ currentSong, currentTime, duration, isPlaying, onSe
         } border-t border-l border-r`}>
           <div className="flex items-center gap-3">
             <img
-                src={`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'}${currentSong.thumbnailPath}`}
+                src={`${import.meta.env.VITE_API_BASE_URL || 'https://api.muzo.com.vn'}${currentSong.thumbnailPath}`}
                 alt={currentSong.title}
                 className="w-8 h-8 rounded object-cover"
             />

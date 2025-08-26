@@ -1,4 +1,4 @@
-// frontend/src/modules/music/services/musicService.js
+// frontend-webmusic/src/modules/music/services/musicService.js
 import { apiService } from "../../../shared/services/apiService";
 
 const getSongById = async (songId) => {
@@ -17,21 +17,21 @@ const getSongLyrics = async (songId) => {
     return response.data;
   } catch (error) {
     console.error(`Failed to fetch lyrics for song ${songId}:`, error);
-    return { success: false, data: [] }; // Trả về mảng rỗng nếu có lỗi
+    return { success: false, data: [] };
   }
 };
 
-// --- START: ADDED FUNCTION ---
-const getChart = async () => {
+const getChart = async ({ page = 1, limit = 20 }) => {
   try {
-    const response = await apiService.get("/api/v1/chart");
+    const response = await apiService.get("/api/v1/chart", {
+      params: { page, limit },
+    });
     return response.data;
   } catch (error) {
     console.error("Failed to fetch chart data:", error);
     throw error;
   }
 };
-// --- END: ADDED FUNCTION ---
 
 const getSingerDetail = async (singerId) => {
   try {
@@ -82,8 +82,8 @@ const fetchSongSubmissionData = async () => {
 const submitNewSong = async (submissionData) => {
   try {
     const response = await apiService.post(
-      "/api/v1/submissions",
-      submissionData
+        "/api/v1/submissions",
+        submissionData
     );
     return response.data;
   } catch (error) {
@@ -136,8 +136,8 @@ const getAllSongsForPlaylist = async () => {
 const addSongsToPlaylist = async (playlistId, songIds) => {
   try {
     const response = await apiService.post(
-      `/api/v1/playlists/${playlistId}/songs`,
-      { songIds }
+        `/api/v1/playlists/${playlistId}/songs`,
+        { songIds }
     );
     return response.data;
   } catch (error) {
@@ -148,13 +148,13 @@ const addSongsToPlaylist = async (playlistId, songIds) => {
 const updatePlaylist = async (playlistId, formData) => {
   try {
     const response = await apiService.put(
-      `/api/v1/playlists/${playlistId}`,
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
+        `/api/v1/playlists/${playlistId}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
     );
     return response.data;
   } catch (error) {
@@ -174,7 +174,7 @@ const deletePlaylist = async (playlistId) => {
 const removeSongFromPlaylist = async (playlistId, songId) => {
   try {
     const response = await apiService.delete(
-      `/api/v1/playlists/${playlistId}/songs/${songId}`
+        `/api/v1/playlists/${playlistId}/songs/${songId}`
     );
     return response.data;
   } catch (error) {
@@ -186,8 +186,8 @@ const getComments = async (type, id, pageable) => {
   const endpoint = type === "SONG" ? "songs" : "playlists";
   try {
     const response = await apiService.get(
-      `/api/v1/${endpoint}/${id}/comments`,
-      { params: pageable }
+        `/api/v1/${endpoint}/${id}/comments`,
+        { params: pageable }
     );
     return response.data;
   } catch (error) {
@@ -199,8 +199,8 @@ const createComment = async (type, id, data) => {
   const endpoint = type === "SONG" ? "songs" : "playlists";
   try {
     const response = await apiService.post(
-      `/api/v1/${endpoint}/${id}/comments`,
-      data
+        `/api/v1/${endpoint}/${id}/comments`,
+        data
     );
     return response.data;
   } catch (error) {
@@ -212,7 +212,7 @@ const deleteComment = async (type, commentId) => {
   const endpoint = type === "SONG" ? "songs" : "playlists";
   try {
     const response = await apiService.delete(
-      `/api/v1/${endpoint}/comments/${commentId}`
+        `/api/v1/${endpoint}/comments/${commentId}`
     );
     return response.data;
   } catch (error) {
@@ -232,7 +232,7 @@ const toggleSongLike = async (songId) => {
 const togglePlaylistLike = async (playlistId) => {
   try {
     const response = await apiService.post(
-      `/api/v1/likes/playlists/${playlistId}`
+        `/api/v1/likes/playlists/${playlistId}`
     );
     return response.data;
   } catch (error) {
@@ -252,7 +252,7 @@ const getAdminPlaylistManagement = async () => {
 const togglePlaylistVisibility = async (playlistId) => {
   try {
     const response = await apiService.post(
-      `/api/v1/playlists/${playlistId}/toggle-visibility`
+        `/api/v1/playlists/${playlistId}/toggle-visibility`
     );
     return response.data;
   } catch (error) {
@@ -265,8 +265,8 @@ const incrementSongListenCount = async (songId) => {
     await apiService.post(`/api/v1/songs/${songId}/listen`);
   } catch (error) {
     console.error(
-      `Failed to increment listen count for song ${songId}:`,
-      error
+        `Failed to increment listen count for song ${songId}:`,
+        error
     );
   }
 };
@@ -274,12 +274,12 @@ const incrementSongListenCount = async (songId) => {
 const incrementPlaylistListenCount = async (playlistId) => {
   try {
     await apiService.post(
-      `/api/v1/playlists/${playlistId}/increment-listen-count`
+        `/api/v1/playlists/${playlistId}/increment-listen-count`
     );
   } catch (error) {
     console.error(
-      `Failed to increment listen count for playlist ${playlistId}:`,
-      error
+        `Failed to increment listen count for playlist ${playlistId}:`,
+        error
     );
   }
 };
@@ -287,7 +287,7 @@ const incrementPlaylistListenCount = async (playlistId) => {
 const getTopListenedPlaylists = async () => {
   try {
     const response = await apiService.get(
-      "/api/v1/playlists/top-listened?limit=8"
+        "/api/v1/playlists/top-listened?limit=8"
     );
     return response.data;
   } catch (error) {
@@ -309,7 +309,7 @@ const getTopSongs = async (limit = 8) => {
 const getTopSongsPaginated = async (page = 1, size = 20) => {
   try {
     const response = await apiService.get(
-      `/api/v1/songs/top?page=${page - 1}&size=${size}`
+        `/api/v1/songs/top?page=${page - 1}&size=${size}`
     );
     return response.data;
   } catch (error) {
@@ -321,7 +321,7 @@ const getTopSongsPaginated = async (page = 1, size = 20) => {
 const getRecentSongs = async (limit = 8) => {
   try {
     const response = await apiService.get(
-      `/api/v1/songs/recent?limit=${limit}`
+        `/api/v1/songs/recent?limit=${limit}`
     );
     return response.data;
   } catch (error) {
@@ -333,7 +333,7 @@ const getRecentSongs = async (limit = 8) => {
 const getRecentSongsPaginated = async (page = 1, size = 20) => {
   try {
     const response = await apiService.get(
-      `/api/v1/songs/recent?page=${page - 1}&size=${size}`
+        `/api/v1/songs/recent?page=${page - 1}&size=${size}`
     );
     return response.data;
   } catch (error) {
@@ -345,7 +345,7 @@ const getRecentSongsPaginated = async (page = 1, size = 20) => {
 const getRecentPlaylists = async (limit = 8) => {
   try {
     const response = await apiService.get(
-      `/api/v1/playlists/recent?limit=${limit}`
+        `/api/v1/playlists/recent?limit=${limit}`
     );
     return response.data;
   } catch (error) {
@@ -357,7 +357,7 @@ const getRecentPlaylists = async (limit = 8) => {
 const getMostLikedSongs = async (limit = 8) => {
   try {
     const response = await apiService.get(
-      `/api/v1/songs/most-liked?limit=${limit}`
+        `/api/v1/songs/most-liked?limit=${limit}`
     );
     return response.data;
   } catch (error) {
@@ -369,7 +369,7 @@ const getMostLikedSongs = async (limit = 8) => {
 const getMostLikedSongsPaginated = async (page = 1, size = 20) => {
   try {
     const response = await apiService.get(
-      `/api/v1/songs/most-liked?page=${page - 1}&size=${size}`
+        `/api/v1/songs/most-liked?page=${page - 1}&size=${size}`
     );
     return response.data;
   } catch (error) {
@@ -381,7 +381,7 @@ const getMostLikedSongsPaginated = async (page = 1, size = 20) => {
 const getMostLikedPlaylists = async (limit = 8) => {
   try {
     const response = await apiService.get(
-      `/api/v1/playlists/most-liked?limit=${limit}`
+        `/api/v1/playlists/most-liked?limit=${limit}`
     );
     return response.data;
   } catch (error) {
@@ -391,45 +391,32 @@ const getMostLikedPlaylists = async (limit = 8) => {
 };
 
 const getMostLikedPlaylistsWithSongs = async (limit = 8) => {
-    try {
-        const response = await apiService.get(`/api/v1/playlists/most-liked?limit=${limit}&includeSongs=true`);
-        return response.data;
-    } catch (error) {
-        console.error("Failed to fetch most liked playlists with songs:", error);
-        // Fallback to regular getMostLikedPlaylists if the new endpoint doesn't exist
-        return await getMostLikedPlaylists(limit);
-    }
-};
-
-const searchSongs = async (keyword, page = 0, size = 10) => {
   try {
-    const response = await apiService.get(`/api/v1/songs`, {
-      params: { search: keyword, page, size },
-    });
+    const response = await apiService.get(`/api/v1/playlists/most-liked?limit=${limit}&includeSongs=true`);
     return response.data;
   } catch (error) {
-    console.error("Failed to search songs:", error);
+    console.error("Failed to fetch most liked playlists with songs:", error);
+    return await getMostLikedPlaylists(limit);
+  }
+};
+
+const getAllSongs = async ({ page = 1, limit = 20, search, tagId }) => {
+  try {
+    const params = { page, limit };
+    if (search) params.search = search;
+    if (tagId) params.tagId = tagId;
+    const response = await apiService.get('/api/v1/songs', { params });
+    return response.data;
+  } catch (error) {
+    console.error("Failed to fetch songs:", error);
     throw error;
   }
 };
 
-const getAllSongs = async (page = 0, size = 20) => {
-  try {
-    const response = await apiService.get(`/api/v1/songs/all`, {
-      params: { page, size },
-    });
-    return response.data;
-  } catch (error) {
-    console.error("Failed to get all songs:", error);
-    // Fallback to search with empty keyword
-    return await searchSongs("", page, size);
-  }
-};
-
-const searchPlaylists = async (keyword, page = 0, size = 10) => {
+const searchPlaylists = async ({ keyword, page = 1, limit = 10 }) => {
   try {
     const response = await apiService.get(`/api/v1/playlists/search`, {
-      params: { keyword, page, size },
+      params: { keyword, page: page - 1, size: limit },
     });
     return response.data;
   } catch (error) {
@@ -438,10 +425,10 @@ const searchPlaylists = async (keyword, page = 0, size = 10) => {
   }
 };
 
-const searchSingers = async (keyword, page = 0, size = 10) => {
+const searchSingers = async ({ keyword, page = 1, limit = 10 }) => {
   try {
     const response = await apiService.get(`/api/v1/singers/search`, {
-      params: { keyword, page, size },
+      params: { keyword, page: page - 1, size: limit },
     });
     return response.data;
   } catch (error) {
@@ -461,55 +448,54 @@ const getTopSingers = async (limit = 8) => {
 };
 
 const getRandomSongs = async (limit = 9) => {
-    try {
-        const response = await apiService.get(`/api/v1/songs/random?limit=${limit}`);
-        return response.data;
-    } catch (error) {
-        console.error("Failed to fetch random songs:", error);
-        throw error;
-    }
+  try {
+    const response = await apiService.get(`/api/v1/songs/random?limit=${limit}`);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to fetch random songs:", error);
+    throw error;
+  }
 };
 
 export const musicService = {
-    getSongById,
-    getSongLyrics,
-    getChart,
-    getSingerDetail,
-    fetchSongSubmissionData,
-    submitNewSong,
-    getSongDetails,
-    getQueue,
-    createPlaylist,
-    getMyPlaylists,
-    getPlaylistDetails,
-    getAllSongsForPlaylist,
-    addSongsToPlaylist,
-    updatePlaylist,
-    deletePlaylist,
-    removeSongFromPlaylist,
-    getComments,
-    createComment,
-    deleteComment,
-    toggleSongLike,
-    togglePlaylistLike,
-    getAdminPlaylistManagement,
-    togglePlaylistVisibility,
-    incrementSongListenCount,
-    incrementPlaylistListenCount,
-    getTopListenedPlaylists,
-    getTopSongs,
-    getTopSongsPaginated,
-    getRecentSongs,
-    getRecentSongsPaginated,
-    getRecentPlaylists,
-    getMostLikedSongs,
-    getMostLikedSongsPaginated,
-    getMostLikedPlaylists,
-    getMostLikedPlaylistsWithSongs,
-    searchSongs,
-    getAllSongs,
-    searchPlaylists,
-    searchSingers,
-    getTopSingers,
-    getRandomSongs,
+  getSongById,
+  getSongLyrics,
+  getChart,
+  getSingerDetail,
+  fetchSongSubmissionData,
+  submitNewSong,
+  getSongDetails,
+  getQueue,
+  createPlaylist,
+  getMyPlaylists,
+  getPlaylistDetails,
+  getAllSongsForPlaylist,
+  addSongsToPlaylist,
+  updatePlaylist,
+  deletePlaylist,
+  removeSongFromPlaylist,
+  getComments,
+  createComment,
+  deleteComment,
+  toggleSongLike,
+  togglePlaylistLike,
+  getAdminPlaylistManagement,
+  togglePlaylistVisibility,
+  incrementSongListenCount,
+  incrementPlaylistListenCount,
+  getTopListenedPlaylists,
+  getTopSongs,
+  getTopSongsPaginated,
+  getRecentSongs,
+  getRecentSongsPaginated,
+  getRecentPlaylists,
+  getMostLikedSongs,
+  getMostLikedSongsPaginated,
+  getMostLikedPlaylists,
+  getMostLikedPlaylistsWithSongs,
+  getAllSongs,
+  searchPlaylists,
+  searchSingers,
+  getTopSingers,
+  getRandomSongs,
 };

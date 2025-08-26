@@ -6,7 +6,7 @@ import { musicService } from '../../modules/music/services/musicService';
 import { useAuth } from '../../hooks/useAuth';
 import { toast } from 'react-toastify';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://api.muzo.com.vn';
 
 const PlaylistCard = ({ playlist }) => {
     const { playPlaylist } = useAudio();

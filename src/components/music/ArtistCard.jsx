@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://api.muzo.com.vn';
 
 const ArtistCard = ({ artist }) => {
     const imageUrl = artist.avatarPath ? `${API_BASE_URL}${artist.avatarPath}` : 'https://via.placeholder.com/150';

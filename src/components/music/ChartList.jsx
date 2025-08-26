@@ -1,18 +1,19 @@
+// frontend-webmusic/src/components/music/ChartList.jsx
+
 import React from 'react';
 import ChartItem from './ChartItem';
 import { useAudio } from '../../hooks/useAudio';
-import { useDarkMode } from '../../hooks/useDarkMode';
 import { useAuth } from '../../hooks/useAuth';
-import { TrendingUp, Music, Clock, Headphones, Heart } from 'lucide-react';
+import { TrendingUp, Music, Headphones, Heart, Loader2 } from 'lucide-react';
 
-const ChartList = ({ chartData = [] }) => {
+const ChartList = ({ chartData = [], lastItemRef, isLoadingMore }) => {
     const { playSong } = useAudio();
-    const { isDarkMode } = useDarkMode();
     const { isAdmin } = useAuth();
 
     const validChartData = chartData ? chartData.filter(entry => entry && entry.song) : [];
+    const songList = validChartData.map(entry => entry.song);
 
-    if (validChartData.length === 0) {
+    if (validChartData.length === 0 && !isLoadingMore) {
         return (
             <div className="text-center py-20">
                 <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-700 dark:to-slate-800 rounded-full flex items-center justify-center">
@@ -24,38 +25,32 @@ const ChartList = ({ chartData = [] }) => {
         );
     }
 
-    const songList = validChartData.map(entry => entry.song);
-
     const handlePlaySong = (songToPlay) => {
         playSong(songToPlay, songList);
     };
 
     return (
         <div className="space-y-1">
-            {/* Header */}
             <div className="z-10 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border-b border-slate-200/50 dark:border-slate-700/50 px-6 py-4">
                 <div className="grid grid-cols-[4rem_1rem_1fr_12rem_5rem_5rem_5rem_3rem] gap-4 items-center text-sm font-semibold text-slate-500 dark:text-slate-400">
-                    <div className="flex items-center justify-center">
-                        <TrendingUp className="w-4 h-4" />
-                    </div>
-                    <div></div> {/* Rank change column */}
+                    <div className="flex items-center justify-center"><TrendingUp className="w-4 h-4" /></div>
+                    <div></div>
                     <div>BÀI HÁT</div>
                     <div className="hidden md:block">NGHỆ SĨ</div>
                     <div className="hidden md:block text-center"></div>
-                    <div className="hidden md:flex items-center justify-center">
-                        <Headphones className="w-4 h-4" />
-                    </div>
-                    <div className="hidden md:flex items-center justify-center">
-                        <Heart className="w-4 h-4" />
-                    </div>
-                    <div></div> {/* Action button column */}
+                    <div className="hidden md:flex items-center justify-center"><Headphones className="w-4 h-4" /></div>
+                    <div className="hidden md:flex items-center justify-center"><Heart className="w-4 h-4" /></div>
+                    <div></div>
                 </div>
             </div>
 
-            {/* Chart Items */}
             <div className="divide-y divide-slate-100 dark:divide-slate-800/50">
                 {validChartData.map((entry, index) => (
-                    <div key={entry.song.id} className="group">
+                    <div
+                        ref={index === validChartData.length - 1 ? lastItemRef : null}
+                        key={`${entry.song.id}-${index}`}
+                        className="group"
+                    >
                         <ChartItem
                             chartEntry={entry}
                             onPlay={() => handlePlaySong(entry.song)}
@@ -65,7 +60,12 @@ const ChartList = ({ chartData = [] }) => {
                 ))}
             </div>
 
-            {/* Footer Stats - Only visible to admins */}
+            {isLoadingMore && (
+                <div className="flex justify-center items-center p-4">
+                    <Loader2 className="w-6 h-6 animate-spin text-cyan-500" />
+                </div>
+            )}
+
             {isAdmin() && (
                 <div className="px-6 py-8 bg-slate-50/50 dark:bg-slate-800/20 rounded-b-2xl border-t border-slate-200/50 dark:border-slate-700/50">
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">

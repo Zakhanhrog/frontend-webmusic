@@ -5,7 +5,7 @@ import Modal from '../../../components/common/Modal';
 import Button from '../../../components/common/Button';
 import { Plus, Loader2, Music } from 'lucide-react';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://api.muzo.com.vn';
 
 export const AddToPlaylistModal = ({ isOpen, onClose, songToAdd }) => {
     const [playlists, setPlaylists] = useState([]);

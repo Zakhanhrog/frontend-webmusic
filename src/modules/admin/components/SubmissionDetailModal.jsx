@@ -4,7 +4,7 @@ import { adminService } from '../services/adminService';
 import { Loader2, Music, User, Tag, Crown } from 'lucide-react';
 import { toast } from 'react-toastify';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://api.muzo.com.vn';
 
 const InfoRow = ({ icon: Icon, label, value }) => (
     <div className="flex items-start">
