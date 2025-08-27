@@ -1,3 +1,5 @@
+// frontend-webmusic/src/App.jsx
+
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -14,6 +16,7 @@ import ForgotPassword from "./modules/auth/pages/ForgotPassword";
 import MusicDiscoveryPage from "./pages/MusicDiscoveryPage";
 import ArtistDetailPage from "./modules/music/pages/ArtistDetailPage";
 import ChartPage from './pages/ChartPage';
+import AIResultsPage from './pages/AIResultsPage';
 import {
   UserManagement,
   SingerManagement,
@@ -77,7 +80,7 @@ function AppContent() {
             <Route path="/playlist/:playlistId" element={<PlaylistDetailPage />} />
             <Route path="/singer/:id" element={<ArtistDetailPage />} />
             <Route path="charts" element={<ChartPage />} />
-
+            <Route path="/ai-results" element={<AIResultsPage />} />
             <Route element={<ProtectedRoute />}>
               <Route path="/songs" element={<SongManagement />} />
               <Route path="/my-playlists" element={<PlaylistManagement />} />

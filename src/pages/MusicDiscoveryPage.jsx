@@ -149,7 +149,11 @@ const MusicDiscoveryPage = () => {
     loading: recentSongsLoading,
     hasMore: hasMoreRecentSongs,
     lastElementRef
-  } = useInfiniteScroll({ fetcher: fetchSongsForInfiniteScroll, limit: 10 });
+  } = useInfiniteScroll({
+    fetcher: fetchSongsForInfiniteScroll,
+    limit: 10,
+    maxItems: 20
+  });
 
   useEffect(() => {
     const fetchPageData = async () => {
@@ -265,11 +269,6 @@ const MusicDiscoveryPage = () => {
             })}
           </div>
           {recentSongsLoading && <SkeletonGrid items={5} cols={5}/>}
-          {!recentSongsLoading && !hasMoreRecentSongs && recentSongs.length > 0 && (
-              <p className="text-center text-slate-500 dark:text-slate-400 col-span-full mt-4">
-                Đã hết bài hát để hiển thị.
-              </p>
-          )}
         </Section>
 
         <Section title="Playlist Mới" viewAllLink="/playlists?category=recent">
